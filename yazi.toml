@@ -24,26 +24,38 @@ max_height = 1000
 cache_dir = "" # Use system temp directory by default
 
 [opener]
-# macOS specific openers
 edit = [
-    { run = 'code "$@"', block = true, desc = "VS Code", for = "mac" },
-    { run = 'vim "$@"', block = true, desc = "Vim", for = "unix" }
+  { run = 'nvim "$@"', block = true, desc = "Neovim", for = "macos" },
+  # Optional fallback:
+  { run = 'code -w "$@"', block = true, desc = "VS Code", for = "macos" },
 ]
+
+reveal = [
+  { run = 'open -R "$0"', desc = "Reveal in Finder", for = "macos" },
+]
+
 open = [
-    { run = 'open "$@"', desc = "Open", for = "mac" }
+  { run = 'open "$@"', desc = "Open", for = "macos" }
 ]
+
 play = [
-    { run = 'iina "$@"', orphan = true, desc = "IINA", for = "mac" }, # Optional: Swap for 'vlc' or 'open'
-    { run = 'open "$@"', desc = "Default Player", for = "mac" }
+  { run = 'iina "$@"', orphan = true, desc = "IINA", for = "macos" },
+  { run = 'open "$@"', desc = "Default Player", for = "macos" }
 ]
+
 
 [open]
 rules = [
-    { name = "*/", use = [ "edit", "open", "reveal" ] },
-    { mime = "text/*", use = [ "edit", "reveal" ] },
-    { mime = "image/*", use = [ "open", "reveal" ] },
-    { mime = "video/*", use = [ "play", "reveal" ] },
-    { mime = "audio/*", use = [ "play", "reveal" ] },
-    { mime = "application/json", use = [ "edit", "reveal" ] },
-    { name = "*", use = [ "open", "reveal" ] },
+  { name = "*/", use = [ "open", "reveal" ] },
+
+  { mime = "text/*", use = [ "edit", "reveal" ] },
+  { mime = "application/json", use = [ "edit", "reveal" ] },
+
+  { mime = "image/*", use = [ "open", "reveal" ] },
+  { mime = "video/*", use = [ "play", "reveal" ] },
+  { mime = "audio/*", use = [ "play", "reveal" ] },
+
+  # Fallback: default to Neovim, but keep macOS `open` available
+  { name = "*", use = [ "edit", "open", "reveal" ] },
 ]
+
