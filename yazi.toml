@@ -6,11 +6,6 @@
 ratio = [ 1, 4, 3 ]
 show_hidden = true
 
-prepend_keymap = [
-  { on = [ "g", "l" ], run = "plugin lazygit", desc = "Lazygit (plugin)" },
-]
-
-
 # Sorting: "natural" feels most like Finder
 sort_by = "natural"
 sort_sensitive = false
