@@ -1,0 +1,49 @@
+# A clean, performance-focused configuration for macOS
+
+[manager]
+# Layout: Parent (1), Current (4), Preview (3)
+# Set to [0, 2, 1] for an even more focused view (hiding parent)
+ratio = [ 1, 4, 3 ]
+
+# Sorting: "natural" feels most like Finder
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+
+# Visuals: Keep the file list clean
+linemode = "size"  # Options: "none", "size", "btime", "mtime", "permissions"
+show_hidden = false
+show_symlink = true
+
+[preview]
+wrap = "yes"
+tab_size = 2
+max_width = 1000
+max_height = 1000
+cache_dir = "" # Use system temp directory by default
+
+[opener]
+# macOS specific openers
+edit = [
+    { run = 'code "$@"', block = true, desc = "VS Code", for = "mac" },
+    { run = 'vim "$@"', block = true, desc = "Vim", for = "unix" }
+]
+open = [
+    { run = 'open "$@"', desc = "Open", for = "mac" }
+]
+play = [
+    { run = 'iina "$@"', orphan = true, desc = "IINA", for = "mac" }, # Optional: Swap for 'vlc' or 'open'
+    { run = 'open "$@"', desc = "Default Player", for = "mac" }
+]
+
+[open]
+rules = [
+    { name = "*/", use = [ "edit", "open", "reveal" ] },
+    { mime = "text/*", use = [ "edit", "reveal" ] },
+    { mime = "image/*", use = [ "open", "reveal" ] },
+    { mime = "video/*", use = [ "play", "reveal" ] },
+    { mime = "audio/*", use = [ "play", "reveal" ] },
+    { mime = "application/json", use = [ "edit", "reveal" ] },
+    { name = "*", use = [ "open", "reveal" ] },
+]

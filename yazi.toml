@@ -4,6 +4,12 @@
 # Layout: Parent (1), Current (4), Preview (3)
 # Set to [0, 2, 1] for an even more focused view (hiding parent)
 ratio = [ 1, 4, 3 ]
+show_hidden = true
+
+prepend_keymap = [
+  { on = [ "g", "l" ], run = "plugin lazygit", desc = "Lazygit (plugin)" },
+]
+
 
 # Sorting: "natural" feels most like Finder
 sort_by = "natural"
@@ -13,7 +19,6 @@ sort_dir_first = true
 
 # Visuals: Keep the file list clean
 linemode = "size"  # Options: "none", "size", "btime", "mtime", "permissions"
-show_hidden = false
 show_symlink = true
 
 [preview]
